@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 {
   programs.nixvim = {
-    # 将其设为默认主题
+
     colorscheme = "tokyonight";
-    
-    # 配置主题插件
+
     colorschemes.tokyonight = {
       enable = true;
       settings = {
@@ -14,8 +13,8 @@
         styles = {
           comments.italic = true;
           keywords.italic = true;
-          functions = {};
-          variables = {};
+          functions = { };
+          variables = { };
         };
       };
     };

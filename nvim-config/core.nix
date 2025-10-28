@@ -1,4 +1,3 @@
-# /etc/nixos/nvim_config/core.nix
 { config, pkgs, ... }:
 
 {
@@ -24,5 +23,23 @@
       update_in_insert = true;
       severity_sort = true;
     };
+    keymaps=[
+    {
+        mode = [ "n" "i" ];
+        key = "<C-s>";
+        action = "<cmd>w<cr>";
+        options = {
+          desc = "Save file";
+        };
+      }
+      {
+        mode = "n";
+        key = "<esc><esc>";
+        action = "<cmd>wqa!<cr>";
+        options = {
+          desc = "Save and quit all";
+        };
+      }
+    ];
   };
 }
