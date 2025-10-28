@@ -5,20 +5,24 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
-  ./nvim-config
+    ./nvim-config
     # include NixOS-WSL modules
     # <nixos-wsl/modules> # This is likely now handled by your flake.nix, you can remove it.
   ];
 
   wsl.enable = true;
   wsl.defaultUser = "rtchou";
-  
-environment.systemPackages = with pkgs; [
-    # 这是一个合并和排序后的列表
+
+  environment.systemPackages = with pkgs; [
     autoconf
     autogen
     automake
@@ -43,6 +47,7 @@ environment.systemPackages = with pkgs; [
     hdf5
     htop
     hyfetch
+    lazygit
     less
     libtool
     libxml2
@@ -79,10 +84,9 @@ environment.systemPackages = with pkgs; [
 
   ];
 
-
   programs.zoxide = {
-      enable = true;
-      enableZshIntegration = true;
+    enable = true;
+    enableZshIntegration = true;
   };
   programs.zsh = {
     enable = true;
@@ -92,15 +96,21 @@ environment.systemPackages = with pkgs; [
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-        cd = "z";
-        vi = "nvim";
-        vim = "nvim";
-        ls = "lsd";
+      cd = "z";
+      vi = "nvim";
+      vim = "nvim";
+      ls = "lsd";
 
     };
     ohMyZsh = {
       enable = true;
-      plugins = ["history" "dirhistory" "git" "colorize" "command-not-found"];
+      plugins = [
+        "history"
+        "dirhistory"
+        "git"
+        "colorize"
+        "command-not-found"
+      ];
       theme = "xiong-chiamiov-plus";
     };
 
