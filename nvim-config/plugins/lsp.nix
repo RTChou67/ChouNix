@@ -10,6 +10,7 @@
       texlab.enable = true;
       #julia.enable = true;
       nixd.enable = true;
+      html.enable = true;
     };
   };
 }

@@ -38,7 +38,7 @@
             highlight = "NeoTreeFileIcon";
           };
           modified = {
-            symbol = "[+]";
+            symbol = "●";
             highlight = "NeoTreeModified";
           };
           name = {
@@ -48,17 +48,19 @@
           };
           git_status = {
             symbols = {
-              added = "";
-              conflict = "󰩌";
-              deleted = "󱂥";
-              ignored = "";
-              modified = "";
-              renamed = "󰑕";
-              staged = "󰩍";
-              unstaged = "";
-              untracked = "";
-            };
+              # “最终”状态
+              added = ""; # Octicon: check (已添加)
+              staged = ""; # Octicon: check (已暂存)
+              deleted = ""; # Octicon: trash (已删除)
+              conflict = ""; # Octicon: conflict (冲突)
+              renamed = ""; # Octicon: arrow-right (重命名)
+              ignored = ""; # Octicon: eye-closed (已忽略)
 
+              # “工作区”状态 (优化后)
+              modified = ""; # Octicon: primitive-dot (已修改)
+              untracked = ""; # Octicon: question (未跟踪的新文件)
+              unstaged = ""; # Octicon: dash (未暂存的修改)
+            };
           };
         };
         window = {

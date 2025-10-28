@@ -61,6 +61,7 @@
     ripgrep
     shfmt
     spglib
+    statix
     stylua
     trash-cli
     tree

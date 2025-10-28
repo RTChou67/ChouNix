@@ -8,8 +8,15 @@
         layout = {
           default_direction = "right";
           width = 30;
+          backends = {
+            html = [
+              "lsp"
+              "treesitter"
+            ];
+          };
         };
       };
+
     };
 
     keymaps = [
