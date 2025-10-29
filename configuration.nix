@@ -100,6 +100,7 @@
       vi = "nvim";
       vim = "nvim";
       ls = "lsd";
+      rm = "trash";
 
     };
     ohMyZsh = {
