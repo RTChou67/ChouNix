@@ -112,9 +112,9 @@
         "colorize"
         "command-not-found"
       ];
-      theme = "xiong-chiamiov-plus";
+      theme = "rtchou";
+      custom = "./omz-config/";
     };
-
   };
   nixpkgs.config.allowUnfree = true;
   users.defaultUserShell = pkgs.zsh;
