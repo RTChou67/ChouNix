@@ -21,7 +21,6 @@
 
   wsl.enable = true;
   wsl.defaultUser = "rtchou";
-
   environment.systemPackages = with pkgs; [
     autoconf
     autogen
@@ -118,6 +117,12 @@
   };
   nixpkgs.config.allowUnfree = true;
   users.defaultUserShell = pkgs.zsh;
+  #services.flatpak.enable = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

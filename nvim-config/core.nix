@@ -8,7 +8,7 @@
       number = true;
       tabstop = 4;
       shiftwidth = 4;
-      expandtab = true;
+      #expandtab = true;
       smartindent = true;
       autoindent = true;
       timeoutlen = 500;
@@ -23,9 +23,12 @@
       update_in_insert = true;
       severity_sort = true;
     };
-    keymaps=[
-    {
-        mode = [ "n" "i" ];
+    keymaps = [
+      {
+        mode = [
+          "n"
+          "i"
+        ];
         key = "<C-s>";
         action = "<cmd>w<cr>";
         options = {
@@ -39,6 +42,13 @@
         options = {
           desc = "Save and quit all";
         };
+      }
+    ];
+    autoCmd = [
+      {
+        event = "FileType";
+        pattern = [ "nix" ];
+        command = "setlocal shiftwidth=2 tabstop=2";
       }
     ];
   };
