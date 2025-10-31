@@ -53,11 +53,12 @@
     lsd
     lua
     luarocks
-    micromamba
+    #miniforge
     nodejs
     nixfmt-rfc-style
     nushell
     pkg-config
+    python3
     ripgrep
     shfmt
     spglib
@@ -67,6 +68,7 @@
     tree
     trexio
     unzip
+    uv
     vim
     wget
     which
@@ -80,7 +82,6 @@
     yarn
     zip
     zlib-ng
-
     zsh
 
   ];
@@ -95,14 +96,12 @@
     enableBashCompletion = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-
     shellAliases = {
       cd = "z";
       vi = "nvim";
       vim = "nvim";
       ls = "lsd";
       rm = "trash";
-
     };
     ohMyZsh = {
       enable = true;
@@ -116,6 +115,7 @@
       theme = "rtchou";
       custom = "/etc/nixos/omz-config";
     };
+
   };
   nixpkgs.config.allowUnfree = true;
   users.defaultUserShell = pkgs.zsh;
