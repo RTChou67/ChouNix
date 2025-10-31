@@ -53,6 +53,7 @@
     lsd
     lua
     luarocks
+    micromamba
     nodejs
     nixfmt-rfc-style
     nushell
@@ -113,7 +114,7 @@
         "command-not-found"
       ];
       theme = "rtchou";
-      custom = "./omz-config/";
+      custom = "/etc/nixos/omz-config";
     };
   };
   nixpkgs.config.allowUnfree = true;
