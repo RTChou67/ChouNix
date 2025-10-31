@@ -34,6 +34,7 @@
     cmake
     curl
     diffutils
+    direnv
     fastfetch
     fd
     fish
@@ -85,7 +86,10 @@
     zsh
 
   ];
-
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
