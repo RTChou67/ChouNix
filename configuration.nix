@@ -117,6 +117,10 @@
     };
 
   };
+  nix.settings.experimental-features = [
+    "flakes"
+    "nix-command"
+  ];
   nixpkgs.config.allowUnfree = true;
   users.defaultUserShell = pkgs.zsh;
   #services.flatpak.enable = true;
