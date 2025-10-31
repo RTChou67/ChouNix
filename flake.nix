@@ -40,7 +40,12 @@
           python-base-workspace = uv2nix.lib.workspace.loadWorkspace {
             workspaceRoot = ./python-base;
           };
-          python-base-env = pkgs.python3.withPackages (python-base-workspace.mkPythonPackages { });
+          python-base-env = pkgs.python3.withPackages (
+            uv2nix.lib.mkPythonPackages {
+              pkgs = pkgs;
+              workspace = python-base-workspace;
+            }
+          );
         in
         pkgs.mkShell {
           name = "python-base-shell";
