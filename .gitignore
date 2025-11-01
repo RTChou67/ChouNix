@@ -1,2 +1,2 @@
-./python-base/.venv/
-./python-base/.direnv/
+python-base/.venv/
+python-base/.direnv/
