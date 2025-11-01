@@ -45,6 +45,7 @@
     gnupatch
     gsl
     hdf5
+    home-manager
     htop
     hyfetch
     lazygit
@@ -99,6 +100,16 @@
     enableCompletion = true;
     enableBashCompletion = true;
     autosuggestions.enable = true;
+    interactiveShellInit = lib.mkMerge [
+      ''
+        activate-pybase() {
+        eval "$(cd /etc/nixos/python-base && direnv export zsh)"
+        }
+        deactivate-pybase() {
+        eval "$(cd /etc/nixos/empty-env && direnv export zsh)"
+        }
+      ''
+    ];
     syntaxHighlighting.enable = true;
     shellAliases = {
       cd = "z";
@@ -140,5 +151,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
