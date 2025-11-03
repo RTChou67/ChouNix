@@ -48,6 +48,7 @@
     home-manager
     htop
     hyfetch
+    julia
     lazygit
     less
     libtool
