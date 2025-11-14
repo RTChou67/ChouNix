@@ -92,53 +92,58 @@
     nushell
     elvish
   ];
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    enableBashCompletion = true;
-    autosuggestions.enable = true;
-    interactiveShellInit = lib.mkMerge [
-      ''
-                        activate-pybase() {
-                          eval "$(cd /etc/nixos/python-base && direnv export zsh)"
-                        }
-                        deactivate-pybase() {
-                          eval "$(cd /etc/nixos/empty-env && direnv export zsh)"
-                        }
-                        export CASE_SENSITIVE="true"
-                        setopt CASE_GLOB
-                				unsetopt NO_CASE_GLOB
-        			''
-    ];
-    syntaxHighlighting.enable = true;
-    shellAliases = {
-      cd = "z";
-      vi = "nvim";
-      vim = "nvim";
-      ls = "lsd";
-      rm = "trash";
-    };
-    ohMyZsh = {
+  programs = {
+    direnv = {
       enable = true;
-      plugins = [
-        "history"
-        "dirhistory"
-        "git"
-        "colorize"
-        "command-not-found"
-      ];
-      theme = "rtchou";
-      custom = "/etc/nixos/omz-config";
+      nix-direnv.enable = true;
     };
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      enableBashCompletion = true;
+      autosuggestions.enable = true;
+      interactiveShellInit = lib.mkMerge [
+        ''
+                    activate-pybase() {
+                      pushd /etc/nixos/python-base >/dev/null || return
+                      eval "$(direnv export zsh)"
+                      popd >/dev/null || return
+                    }
+                    deactivate-pybase() {
+                      pushd /etc/nixos/empty-env >/dev/null || return
+                      eval "$(direnv export zsh)"
+                      popd >/dev/null || return
+                    }          		
+          				''
+      ];
+      syntaxHighlighting.enable = true;
+      shellAliases = {
+        cd = "z";
+        vi = "nvim";
+        vim = "nvim";
+        ls = "lsd";
+        rm = "trash";
+      };
+      ohMyZsh = {
+        enable = true;
+        plugins = [
+          "history"
+          "dirhistory"
+          "git"
+          "colorize"
+          "command-not-found"
+        ];
+        theme = "rtchou";
+        custom = "/etc/nixos/omz-config";
+      };
+    };
+
   };
+
   nix.settings.experimental-features = [
     "flakes"
     "nix-command"
