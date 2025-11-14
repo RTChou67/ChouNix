@@ -108,17 +108,47 @@
       autosuggestions.enable = true;
       interactiveShellInit = lib.mkMerge [
         ''
-                    activate-pybase() {
-                      pushd /etc/nixos/python-base >/dev/null || return
-                      eval "$(direnv export zsh)"
-                      popd >/dev/null || return
-                    }
-                    deactivate-pybase() {
-                      pushd /etc/nixos/empty-env >/dev/null || return
-                      eval "$(direnv export zsh)"
-                      popd >/dev/null || return
-                    }          		
-          				''
+          activate-pybase() {
+            if [[ -n "$PYBASE_ACTIVE" ]]; then
+              echo "Python-base already active"
+              return 0
+            fi
+            echo "Activating python-base environment..."
+            export PYBASE_OLD_PATH="$PATH"
+            export PYBASE_OLD_PYTHONPATH="''${PYTHONPATH:-}"
+            export PYBASE_OLD_PS1="$PS1"
+            local env_script=$(mktemp)
+            nix develop /etc/nixos/python-base --command bash -c 'export -p' > "$env_script" 2>/dev/null
+            if [[ -s "$env_script" ]]; then
+              while IFS= read -r line; do
+                if [[ "$line" =~ ^declare\ -x\ (PATH|PYTHONPATH|UV_.*|REPO_ROOT)= ]]; then
+                  eval "$line"
+                fi
+              done < "$env_script"
+              export PYBASE_ACTIVE=1
+              export PS1="(pybase) $PS1"
+              echo "✓ Python-base activated!"
+              echo "  Python: $(which python3 2>/dev/null || echo 'not found')"
+            else
+              echo "Error: Failed to activate environment"
+              rm -f "$env_script"
+              return 1
+            fi
+            rm -f "$env_script"
+          }
+          deactivate-pybase() {
+            if [[ -z "$PYBASE_ACTIVE" ]]; then
+              echo "Python-base not active"
+              return 0
+            fi
+            export PATH="$PYBASE_OLD_PATH"
+            export PYTHONPATH="$PYBASE_OLD_PYTHONPATH"
+            export PS1="$PYBASE_OLD_PS1"
+            unset PYBASE_ACTIVE PYBASE_OLD_PATH PYBASE_OLD_PYTHONPATH PYBASE_OLD_PS1
+            unset UV_PYTHON UV_NO_SYNC UV_PYTHON_DOWNLOADS REPO_ROOT
+            echo "✓ Python-base deactivated!"
+          }
+        ''
       ];
       syntaxHighlighting.enable = true;
       shellAliases = {
