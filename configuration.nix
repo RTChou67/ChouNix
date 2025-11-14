@@ -18,7 +18,6 @@
     # include NixOS-WSL modules
     # <nixos-wsl/modules> # This is likely now handled by your flake.nix, you can remove it.
   ];
-
   wsl.enable = true;
   wsl.defaultUser = "rtchou";
   environment.systemPackages = with pkgs; [
