@@ -85,6 +85,7 @@
     yarn
     zip
     zlib-ng
+    zsh-prezto
   ];
   environment.shells = with pkgs; [
     zsh
@@ -106,13 +107,16 @@
     autosuggestions.enable = true;
     interactiveShellInit = lib.mkMerge [
       ''
-        activate-pybase() {
-        eval "$(cd /etc/nixos/python-base && direnv export zsh)"
-        }
-        deactivate-pybase() {
-        eval "$(cd /etc/nixos/empty-env && direnv export zsh)"
-        }
-      ''
+                        activate-pybase() {
+                          eval "$(cd /etc/nixos/python-base && direnv export zsh)"
+                        }
+                        deactivate-pybase() {
+                          eval "$(cd /etc/nixos/empty-env && direnv export zsh)"
+                        }
+                        export CASE_SENSITIVE="true"
+                        setopt CASE_GLOB
+                				unsetopt NO_CASE_GLOB
+        			''
     ];
     syntaxHighlighting.enable = true;
     shellAliases = {
@@ -134,7 +138,6 @@
       theme = "rtchou";
       custom = "/etc/nixos/omz-config";
     };
-
   };
   nix.settings.experimental-features = [
     "flakes"
