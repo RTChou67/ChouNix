@@ -1,5 +1,5 @@
 {
-  description = "hello world application using uv2nix";
+  description = "python base dev environment using uv2nix";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -17,9 +17,11 @@
 
     pyproject-build-systems = {
       url = "github:pyproject-nix/build-system-pkgs";
-      inputs.pyproject-nix.follows = "pyproject-nix";
-      inputs.uv2nix.follows = "uv2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        pyproject-nix.follows = "pyproject-nix";
+        uv2nix.follows = "uv2nix";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
   };
 
@@ -39,10 +41,6 @@
 
       overlay = workspace.mkPyprojectOverlay {
         sourcePreference = "wheel";
-      };
-
-      editableOverlay = workspace.mkEditablePyprojectOverlay {
-        root = "$REPO_ROOT";
       };
 
       pythonSets = forAllSystems (
@@ -68,7 +66,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          pythonSet = pythonSets.${system}.overrideScope editableOverlay;
+          pythonSet = pythonSets.${system};
           virtualenv = pythonSet.mkVirtualEnv "python-base-dev-env" workspace.deps.all;
         in
         {
@@ -83,15 +81,11 @@
               UV_PYTHON_DOWNLOADS = "never";
             };
             shellHook = ''
-              unset PYTHONPATH
-              export REPO_ROOT=$(git rev-parse --show-toplevel)
+              export REPO_ROOT=${toString ./.}
+              export PYTHONPATH="$REPO_ROOT:\${"PYTHONPATH:-"}"
             '';
           };
         }
       );
-
-      packages = forAllSystems (system: {
-        default = pythonSets.${system}.mkVirtualEnv "hello-world-env" workspace.deps.default;
-      });
     };
 }
