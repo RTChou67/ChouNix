@@ -8,7 +8,7 @@
       lua_ls.enable = true;
       pyright.enable = true;
       texlab.enable = true;
-      #julia.enable = true;
+      #julia_ls.enable = true;
       nixd.enable = true;
       html.enable = true;
     };

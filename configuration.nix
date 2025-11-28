@@ -6,7 +6,7 @@
 # https://github.com/nix-community/NixOS-WSL
 
 {
-  config,
+  #config,
   lib,
   pkgs,
   ...
@@ -31,6 +31,7 @@
     clang-tools
     cloc
     cmake
+    cp2k
     curl
     diffutils
     direnv
