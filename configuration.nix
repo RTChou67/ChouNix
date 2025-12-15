@@ -97,6 +97,9 @@
       enable = true;
       nix-direnv.enable = true;
     };
+    nix-ld = {
+      enable = true;
+    };
     zoxide = {
       enable = true;
       enableZshIntegration = true;
