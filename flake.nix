@@ -2,6 +2,11 @@
   description = "My NixOS System Configuration";
 
   inputs = {
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "github:NIXOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixvim.url = "github:nix-community/nixvim";
@@ -28,6 +33,7 @@
 
   outputs =
     {
+      home-manager,
       nixpkgs,
       nixos-wsl,
       nixvim,
@@ -45,11 +51,19 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          inherit inputs;
         };
         modules = [
           nixos-wsl.nixosModules.wsl
           nixvim.nixosModules.nixvim
           ./configuration.nix
+          home-manager.nixosModule.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.rtchou = import ./home.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+          }
         ];
       };
     };
