@@ -5,10 +5,10 @@ Personal NixOS WSL configuration managed as a single flake.
 ## Layout
 
 - `flake.nix`: root flake, shared inputs, NixOS configuration, dev shells, checks
-- `hosts/wsl`: WSL-specific NixOS host module
-- `home/rtchou`: Home Manager configuration and shell customizations
-- `modules/nixvim`: Nixvim module and plugin split
-- `devshells/python-base`: uv2nix-based Python development shell
+- `configuration.nix`: WSL-specific NixOS host module
+- `home.nix`: Home Manager configuration and shell customizations
+- `nvim-config`: Nixvim module and plugin split
+- `python-base`: uv2nix-based Python development shell
 
 ## Common Commands
 
@@ -39,7 +39,7 @@ nix develop .#python-base
 Use the Python shell with direnv:
 
 ```bash
-cd devshells/python-base
+cd python-base
 direnv allow
 ```
 

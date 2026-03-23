@@ -31,7 +31,7 @@
         config.allowUnfree = true;
       };
 
-      pythonBaseRoot = ./devshells/python-base;
+      pythonBaseRoot = ./python-base;
       pythonBaseWorkspace = inputs.uv2nix.lib.workspace.loadWorkspace {
         workspaceRoot = pythonBaseRoot;
       };
@@ -90,12 +90,12 @@
         modules = [
           nixos-wsl.nixosModules.wsl
           nixvim.nixosModules.nixvim
-          ./hosts/wsl
+          ./configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.rtchou = import ./home/rtchou;
+            home-manager.users.rtchou = import ./home.nix;
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];

@@ -3,6 +3,7 @@
 let
   repoRoot = inputs.self;
   pythonBaseInstallable = "${repoRoot}#python-base";
+  omzCustomHome = "${config.home.homeDirectory}/.oh-my-zsh/custom";
 in
 {
   home.username = "rtchou";
@@ -90,7 +91,7 @@ in
   # ==========================================================
   programs.home-manager.enable = true;
   home.file.".oh-my-zsh/custom/themes/rtchou.zsh-theme".source =
-    "${repoRoot}/home/rtchou/omz-config/themes/rtchou.zsh-theme";
+    "${repoRoot}/omz-config/themes/rtchou.zsh-theme";
   programs.zoxide = {
     enable = true;
   };
@@ -119,6 +120,7 @@ in
         "command-not-found"
       ];
       theme = "rtchou";
+      custom = omzCustomHome;
     };
 
     initContent = ''

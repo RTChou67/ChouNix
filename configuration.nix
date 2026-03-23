@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  imports = [ ../../modules/nixvim ];
+  imports = [ ./nvim-config ];
 
   wsl.enable = true;
   wsl.defaultUser = "rtchou";
