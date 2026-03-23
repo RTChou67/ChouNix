@@ -24,9 +24,60 @@
       ...
     }@inputs:
     let
+      lib = nixpkgs.lib;
       system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+      pythonBaseRoot = ./devshells/python-base;
+      pythonBaseWorkspace = inputs.uv2nix.lib.workspace.loadWorkspace {
+        workspaceRoot = pythonBaseRoot;
+      };
+      pythonBaseOverlay = pythonBaseWorkspace.mkPyprojectOverlay {
+        sourcePreference = "wheel";
+      };
+      pythonBaseSet =
+        (pkgs.callPackage inputs.pyproject-nix.build.packages {
+          python = pkgs.python3;
+        }).overrideScope (
+          lib.composeManyExtensions [
+            inputs.pyproject-build-systems.overlays.wheel
+            pythonBaseOverlay
+          ]
+        );
+      pythonBaseVirtualenv =
+        pythonBaseSet.mkVirtualEnv "python-base-dev-env" pythonBaseWorkspace.deps.all;
     in
     {
+      formatter.${system} = pkgs.nixfmt-rfc-style;
+
+      devShells.${system} = {
+        default = pkgs.mkShell {
+          packages = with pkgs; [
+            nixfmt-rfc-style
+            statix
+          ];
+        };
+
+        python-base = pkgs.mkShell {
+          packages = [
+            pythonBaseVirtualenv
+            pkgs.uv
+          ];
+          env = {
+            UV_NO_SYNC = "1";
+            UV_PYTHON = pythonBaseSet.python.interpreter;
+            UV_PYTHON_DOWNLOADS = "never";
+          };
+          shellHook = ''
+            export REPO_ROOT=${toString pythonBaseRoot}
+            export PYTHONPATH="$REPO_ROOT:${PYTHONPATH:-}"
+          '';
+        };
+      };
+
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };

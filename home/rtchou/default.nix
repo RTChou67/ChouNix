@@ -3,7 +3,7 @@
 let
   repoRoot = inputs.self;
   omzCustomPath = "${repoRoot}/home/rtchou/omz-config";
-  pythonBasePath = "${repoRoot}/python-base";
+  pythonBaseInstallable = "${repoRoot}#python-base";
 in
 {
   home.username = "rtchou";
@@ -133,7 +133,7 @@ in
         export PYBASE_OLD_PYTHONPATH="$PYTHONPATH"
         export PYBASE_OLD_PS1="$PS1"
         
-        eval "$(nix print-dev-env ${pythonBasePath})"
+        eval "$(nix print-dev-env '${pythonBaseInstallable}')"
         
         export PYBASE_ACTIVE=1
         export PS1="(pybase) $PS1"
