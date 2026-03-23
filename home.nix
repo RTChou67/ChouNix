@@ -42,7 +42,6 @@ in
     gnupatch
     gsl
     hdf5
-    home-manager
     htop
     hyfetch
     jq
@@ -82,7 +81,6 @@ in
     yarn
     zip
     zlib-ng
-    zsh-prezto
   ];
 
   # ==========================================================
