@@ -75,10 +75,10 @@ my_git_prompt() {
   fi
 
   # Check for staged, unstaged, and untracked files
-  if [[ -n $(git diff --staged --quiet) ]]; then
+  if ! git diff --staged --quiet --ignore-submodules -- 2>/dev/null; then
     status_info+="$staged"
   fi
-  if [[ -n $(git diff --quiet) ]]; then
+  if ! git diff --quiet --ignore-submodules -- 2>/dev/null; then
     status_info+="$unstaged"
   fi
   if [[ -n $(git ls-files --others --exclude-standard) ]]; then

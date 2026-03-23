@@ -1,5 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
+let
+  repoRoot = inputs.self;
+  omzCustomPath = "${repoRoot}/omz-config";
+  pythonBasePath = "${repoRoot}/python-base";
+in
 {
   home.username = "rtchou";
   home.homeDirectory = "/home/rtchou";
@@ -84,6 +89,10 @@
   # 用户级程序配置
   # ==========================================================
   programs.home-manager.enable = true;
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.zsh = {
     enable = true;
@@ -97,7 +106,6 @@
       vi = "nvim";
       vim = "nvim";
       rm = "trash";
-      cd = "z";
     };
 
     oh-my-zsh = {
@@ -110,7 +118,7 @@
         "command-not-found"
       ];
       theme = "rtchou";
-      custom = "/etc/nixos/omz-config";
+      custom = omzCustomPath;
     };
 
     initContent = ''
@@ -125,8 +133,7 @@
         export PYBASE_OLD_PYTHONPATH="$PYTHONPATH"
         export PYBASE_OLD_PS1="$PS1"
         
-        # 使用 jq 安全解析环境
-        source <(nix print-dev-env /etc/nixos/python-base --json | ${pkgs.jq}/bin/jq -r '.variables | to_entries | .[] | "export \(.key)=\"\(.value.value)\""')
+        eval "$(nix print-dev-env ${pythonBasePath})"
         
         export PYBASE_ACTIVE=1
         export PS1="(pybase) $PS1"
