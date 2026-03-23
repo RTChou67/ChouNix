@@ -1,8 +1,13 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  pythonBasePackage,
+  ...
+}:
 
 let
   repoRoot = inputs.self;
-  pythonBaseInstallable = "${repoRoot}#python-base";
   omzCustomHome = "${config.home.homeDirectory}/.oh-my-zsh/custom";
 in
 {
@@ -57,7 +62,7 @@ in
     nodejs
     nushell
     pkg-config
-    python3
+    pythonBasePackage
     ripgrep
     shfmt
     spglib
@@ -123,36 +128,6 @@ in
 
     initContent = ''
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
-
-      # Conda 风格的激活函数
-      activate-pybase() {
-        if [[ -n "$PYBASE_ACTIVE" ]]; then
-          echo "Python-base already active"
-          return 0
-        fi
-        echo "Activating python-base environment..."
-        export PYBASE_OLD_PATH="$PATH"
-        export PYBASE_OLD_PYTHONPATH="$PYTHONPATH"
-        export PYBASE_OLD_PS1="$PS1"
-        
-        eval "$(nix print-dev-env '${pythonBaseInstallable}')"
-        
-        export PYBASE_ACTIVE=1
-        export PS1="(pybase) $PS1"
-        echo "✓ Python-base activated!"
-      }
-
-      deactivate-pybase() {
-        if [[ -z "$PYBASE_ACTIVE" ]]; then
-          echo "Python-base not active"
-          return 0
-        fi
-        export PATH="$PYBASE_OLD_PATH"
-        export PYTHONPATH="$PYBASE_OLD_PYTHONPATH"
-        export PS1="$PYBASE_OLD_PS1"
-        unset PYBASE_ACTIVE PYBASE_OLD_PATH PYBASE_OLD_PYTHONPATH PYBASE_OLD_PS1
-        echo "✓ Python-base deactivated!"
-      }
     '';
   };
 }

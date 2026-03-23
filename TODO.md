@@ -6,11 +6,10 @@
   - `nix flake check --show-trace`
   - `nixos-rebuild build --flake .#nixos --show-trace`
   - `nix develop .#python-base`
+- Verify the always-on `python-base` package behavior on NixOS:
+  - confirm the login shell sees the base Python by default
+  - confirm entering a `direnv` project overrides it by PATH precedence
 - Review duplicate packages between `configuration.nix` and `home.nix`, then keep a single owner for each tool where practical.
-- Replace manual `activate-pybase` / `deactivate-pybase` with a true always-on base Python:
-  - install the root flake's `python-base` package into `home.packages`
-  - let `direnv` project environments override it by PATH precedence
-  - remove shell-specific activation logic from `home.nix`
 
 ## Medium Priority
 

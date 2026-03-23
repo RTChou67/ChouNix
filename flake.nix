@@ -86,7 +86,10 @@
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+          pythonBasePackage = pythonBaseVirtualenv;
+        };
         modules = [
           nixos-wsl.nixosModules.wsl
           nixvim.nixosModules.nixvim
@@ -96,7 +99,10 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.rtchou = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              pythonBasePackage = pythonBaseVirtualenv;
+            };
           }
         ];
       };

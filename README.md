@@ -10,6 +10,15 @@ Personal NixOS WSL configuration managed as a single flake.
 - `nvim-config`: Nixvim module and plugin split
 - `python-base`: uv2nix-based Python development shell
 
+## Python Base
+
+The `python-base` environment is exposed in two ways:
+
+- as the default user-level base Python environment through Home Manager
+- as a flake dev shell for explicit development workflows
+
+When you enter a project directory managed by `direnv`, that project environment should override the base Python by `PATH` precedence.
+
 ## Common Commands
 
 Build the system:
@@ -36,7 +45,7 @@ Enter the Python dev shell:
 nix develop .#python-base
 ```
 
-Use the Python shell with direnv:
+Use the project-local Python shell with direnv:
 
 ```bash
 cd python-base
