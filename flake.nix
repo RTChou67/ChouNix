@@ -86,10 +86,7 @@
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {
-          inherit inputs;
-          pythonBasePackage = pythonBaseVirtualenv;
-        };
+        specialArgs = { inherit inputs; };
         modules = [
           nixos-wsl.nixosModules.wsl
           nixvim.nixosModules.nixvim

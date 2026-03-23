@@ -6,9 +6,6 @@
   - `nix flake check --show-trace`
   - `nixos-rebuild build --flake .#nixos --show-trace`
   - `nix develop .#python-base`
-- Verify the always-on `python-base` package behavior on NixOS:
-  - confirm the login shell sees the base Python by default
-  - confirm entering a `direnv` project overrides it by PATH precedence
 - Review duplicate packages between `configuration.nix` and `home.nix`, then keep a single owner for each tool where practical.
 
 ## Medium Priority
@@ -21,7 +18,9 @@
   - `nushell`
   - only clean up shell integration bugs, not the shell set itself
 - Validate the custom `rtchou` zsh theme behavior after the recent path changes.
-- Review the purpose of `empty-env/.envrc` and decide whether it should stay in the repo.
+- Clean small code-quality leftovers:
+  - remove unused function arguments where they no longer serve a purpose
+  - normalize minor formatting leftovers in Nix files
 
 ## Low Priority
 
