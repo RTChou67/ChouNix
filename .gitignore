@@ -1,2 +1,4 @@
-python-base/.venv/
-python-base/.direnv/
+.direnv/
+result
+result-*
+__pycache__/

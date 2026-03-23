@@ -52,6 +52,7 @@
     in
     {
       formatter.${system} = pkgs.nixfmt-rfc-style;
+      packages.${system}.python-base = pythonBaseVirtualenv;
 
       devShells.${system} = {
         default = pkgs.mkShell {
@@ -76,6 +77,11 @@
             export PYTHONPATH="$REPO_ROOT:${PYTHONPATH:-}"
           '';
         };
+      };
+
+      checks.${system} = {
+        nixos = self.nixosConfigurations.nixos.config.system.build.toplevel;
+        python-base = self.packages.${system}.python-base;
       };
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
