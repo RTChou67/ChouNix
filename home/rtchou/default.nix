@@ -2,7 +2,6 @@
 
 let
   repoRoot = inputs.self;
-  omzCustomPath = "${repoRoot}/home/rtchou/omz-config";
   pythonBaseInstallable = "${repoRoot}#python-base";
 in
 {
@@ -82,6 +81,7 @@ in
     yarn
     zip
     zlib-ng
+    zoxide
     zsh-prezto
   ];
 
@@ -89,9 +89,10 @@ in
   # 用户级程序配置
   # ==========================================================
   programs.home-manager.enable = true;
+  home.file.".oh-my-zsh/custom/themes/rtchou.zsh-theme".source =
+    "${repoRoot}/home/rtchou/omz-config/themes/rtchou.zsh-theme";
   programs.zoxide = {
     enable = true;
-    enableZshIntegration = true;
   };
 
   programs.zsh = {
@@ -118,10 +119,11 @@ in
         "command-not-found"
       ];
       theme = "rtchou";
-      custom = omzCustomPath;
     };
 
     initContent = ''
+      eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
+
       # Conda 风格的激活函数
       activate-pybase() {
         if [[ -n "$PYBASE_ACTIVE" ]]; then
