@@ -2,8 +2,6 @@ Python development shell managed by the root flake.
 
 This environment also serves as the always-on base Python environment in the user profile.
 
-Project-specific `direnv` environments are expected to override it when they are active.
-
 Enter it from the repository root with:
 
 ```bash

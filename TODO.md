@@ -27,6 +27,6 @@
 - Expand `README.md` with a short explanation of:
   - update workflow
   - rollback workflow
-  - how the always-on `python-base` and `direnv` override model is expected to work
+  - how the always-on `python-base` and explicit `nix develop` maintenance workflow are expected to work
 - Consider adding more flake checks if they prove useful in practice.
 - Review comments and old wording in config files for consistency.
