@@ -82,7 +82,6 @@ in
     yarn
     zip
     zlib-ng
-    zoxide
     zsh-prezto
   ];
 
@@ -103,6 +102,7 @@ in
     syntaxHighlighting.enable = true;
 
     shellAliases = {
+      cd = "z";
       ls = "eza --icons";
       ll = "eza -l --icons --git -a";
       vi = "nvim";
