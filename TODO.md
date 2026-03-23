@@ -15,10 +15,11 @@
 
 - Decide whether `nvim-config` should remain imported from `configuration.nix` or move fully under Home Manager ownership.
 - Review `home.packages` and remove low-value or unused packages.
-- Check whether all installed shells are intentional:
+- Keep the multi-shell setup intentional:
   - `zsh`
   - `fish`
   - `nushell`
+  - only clean up shell integration bugs, not the shell set itself
 - Validate the custom `rtchou` zsh theme behavior after the recent path changes.
 
 ## Low Priority
