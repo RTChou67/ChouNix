@@ -32,9 +32,7 @@ in
     cloc
     cmake
     cp2k
-    curl
     diffutils
-    direnv
     eza
     fastfetch
     fd
@@ -42,7 +40,6 @@ in
     fzf
     gawk
     gfortran
-    git
     gnumake
     gnupatch
     gsl
@@ -73,8 +70,6 @@ in
     trexio
     unzip
     uv
-    vim
-    wget
     which
     xclip
     xorg.fontadobe100dpi
