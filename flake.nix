@@ -33,12 +33,12 @@
         modules = [
           nixos-wsl.nixosModules.wsl
           nixvim.nixosModules.nixvim
-          ./configuration.nix
+          ./hosts/wsl
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.rtchou = import ./home.nix;
+            home-manager.users.rtchou = import ./home/rtchou;
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];

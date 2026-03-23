@@ -2,7 +2,7 @@
 
 let
   repoRoot = inputs.self;
-  omzCustomPath = "${repoRoot}/omz-config";
+  omzCustomPath = "${repoRoot}/home/rtchou/omz-config";
   pythonBasePath = "${repoRoot}/python-base";
 in
 {

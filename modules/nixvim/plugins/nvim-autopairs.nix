@@ -1,4 +1,3 @@
-# /etc/nixos/nvim-config/plugins/nvim-autopairs.nix
 { config, pkgs, ... }:
 
 {
