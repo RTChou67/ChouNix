@@ -58,7 +58,7 @@ in
     lua
     luarocks
     nixfmt
-    nodejs
+    nodejs_24
     nushell
     pkg-config
     pythonBasePackage
