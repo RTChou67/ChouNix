@@ -51,13 +51,13 @@
         pythonBaseSet.mkVirtualEnv "python-base-dev-env" pythonBaseWorkspace.deps.all;
     in
     {
-      formatter.${system} = pkgs.nixfmt-rfc-style;
+      formatter.${system} = pkgs.nixfmt;
       packages.${system}.python-base = pythonBaseVirtualenv;
 
       devShells.${system} = {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            nixfmt-rfc-style
+            nixfmt
             statix
           ];
         };

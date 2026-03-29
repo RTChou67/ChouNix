@@ -57,7 +57,7 @@ in
     lsd
     lua
     luarocks
-    nixfmt-rfc-style
+    nixfmt
     nodejs
     nushell
     pkg-config
@@ -74,12 +74,11 @@ in
     uv
     which
     xclip
-    xorg.fontadobe100dpi
-    xorg.fontadobe75dpi
-    xorg.fontbhttf
-    xorg.fontcursormisc
-    xorg.mkfontdir
-    xorg.mkfontscale
+    font-adobe-100dpi
+    font-adobe-75dpi
+    font-bh-ttf
+    font-cursor-misc
+    mkfontscale
     yarn
     zip
     zlib-ng
