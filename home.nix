@@ -31,6 +31,7 @@ in
     clang-tools
     cloc
     cmake
+    codex
     cp2k
     diffutils
     eza
@@ -39,6 +40,7 @@ in
     fish
     fzf
     gawk
+    gemini-cli
     gfortran
     gnumake
     gnupatch
