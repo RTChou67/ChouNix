@@ -26,6 +26,7 @@ in
     bat
     black
     btop
+    bubblewrap
     bzip2
     cargo
     clang-tools
